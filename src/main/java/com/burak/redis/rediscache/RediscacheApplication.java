@@ -25,8 +25,6 @@ public class RediscacheApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//Populating embedded database here
-		LOG.info("Saving users. Current user count is {}.", userRepository.count());
 		User a = new User("A");
 		User b = new User("B");
 		User c = new User("C");

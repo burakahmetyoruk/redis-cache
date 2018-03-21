@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -21,17 +22,12 @@ public class UserController {
 
 	private final UserRepository userRepository;
 
-
 	@GetMapping(value = "/get/user/{userId}")
-	@Cacheable(value = "users", key = "#userId", unless = "#result.id < 5",)
+	@Cacheable(value = "users", key = "#userId", unless = "#result.id < 5")
 	public User getUser(@PathVariable String userId) {
-
 		LOG.info("Getting user with ID {}.", userId);
 		Optional<User> optUser = userRepository.findById(Long.valueOf(userId));
 
-		User user = optUser.isPresent() ? optUser.get() : null;
-
-
-		return user;
+		return  optUser.isPresent() ? optUser.get() : null;
 	}
 }
